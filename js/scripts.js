@@ -10,21 +10,21 @@ const data = [
     {
       min: 18.5,
       max: 24.9,
-      classification: "Between 18.5 and 24.9",
+      classification: "Between 18.5 - 24.9",
       info: "Normal",
       obesity: "0",
     },
     {
       min: 25,
       max: 29.9,
-      classification: "Between 25.0 and 29.9",
+      classification: "Between 25.0 - 29.9",
       info: "Overweight",
       obesity: "I",
     },
     {
       min: 30,
       max: 39.9,
-      classification: "Between 30.0 and 39.9",
+      classification: "Between 30.0 - 39.9",
       info: "Obesity",
       obesity: "II",
     },
@@ -44,6 +44,14 @@ const heightInput = document.querySelector("#height");
 const weightInput = document.querySelector("#weight");
 const calcButton = document.querySelector("#calc-button");
 const clearButton = document.querySelector("#clear-button");
+
+const bmiNumber = document.querySelector("#bmi-number span");
+const bmiInfo = document.querySelector("#bmi-info span");
+
+const backButton = document.querySelector("#back-button");
+
+const calcContainer = document.querySelector("#calc-container");
+const resultContainer = document.querySelector("#result-container");
 
 //functions
 function createTable(data){
@@ -82,6 +90,11 @@ function bmiCalc(weight, height){
     return bmi;
 }
 
+function showOrHideResults(){
+    calcContainer.classList.toggle("hide");
+    resultContainer.classList.toggle("hide");
+}
+
 //init
 createTable(data);
 
@@ -112,6 +125,11 @@ calcButton.addEventListener("click", (e) => {
     });
 
     if(!info) return;
+
+    bmiNumber.innerText = bmi;
+    bmiInfo.innerText = info;
+
+    showOrHideResults();
 });
 
 clearButton.addEventListener("click", (e) => {
