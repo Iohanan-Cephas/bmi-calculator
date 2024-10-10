@@ -79,6 +79,8 @@ function createTable(data){
 function cleanInputs(){
     heightInput.value = "";
     weightInput.value = "";
+    bmiNumber.classList.add("");
+    bmiInfo.classList.add("");
 }
 
 function validDigits(text){
@@ -129,10 +131,42 @@ calcButton.addEventListener("click", (e) => {
     bmiNumber.innerText = bmi;
     bmiInfo.innerText = info;
 
+    switch(info){
+        case "Underweight":
+            bmiNumber.classList.add("low");
+            bmiInfo.classList.add("low");
+            break;
+
+        case "Normal":
+            bmiNumber.classList.add("good");
+            bmiInfo.classList.add("good");
+            break;
+
+        case "Overweight":
+            bmiNumber.classList.add("medium");
+            bmiInfo.classList.add("medium");
+            break;
+
+        case "Obesity":
+            bmiNumber.classList.add("high");
+            bmiInfo.classList.add("high");
+            break;
+
+        case " Severe obesity":
+            bmiNumber.classList.add("high");    
+            bmiInfo.classList.add("high");
+            break;
+    }
+
     showOrHideResults();
 });
 
 clearButton.addEventListener("click", (e) => {
     e.preventDefault();
     cleanInputs();
+});
+
+backButton.addEventListener("click", () => {
+    cleanInputs();
+    showOrHideResults();
 });
