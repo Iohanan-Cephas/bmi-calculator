@@ -77,6 +77,11 @@ function validDigits(text){
     return text.replace(/[^0-9,]/g, "");
 }
 
+function bmiCalc(weight, height){
+    const bmi = (weight / (height * height)).toFixed(1);
+    return bmi;
+}
+
 //init
 createTable(data);
 
@@ -87,9 +92,29 @@ createTable(data);
 
         e.target.value = updatedValue;
     })
-})
+});
+
+calcButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const weight = +weightInput.value.replace(",", ".");
+    const height = +heightInput.value.replace(",", ".");
+
+    if(!weight || !height) return;
+
+    const bmi = bmiCalc(weight, height);
+    let info;
+
+    data.forEach((item) => {
+        if(bmi >= item.min && bmi <= item.max){
+            info = item.info;
+        }
+    });
+
+    if(!info) return;
+});
 
 clearButton.addEventListener("click", (e) => {
-    e.preventDefault;
+    e.preventDefault();
     cleanInputs();
-})
+});
