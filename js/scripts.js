@@ -37,21 +37,59 @@ const data = [
     },
   ];  
 
-
 //selection
-const bmiTable = document.querySelector("#bmi-table")
+const bmiTable = document.querySelector("#bmi-table");
 
-const heightInput = document.querySelector("#height")
-const weightInput = document.querySelector("#weight")
-const calcButton = document.querySelector("#calc-button")
-const clearButton = document.querySelector("#clear-button")
+const heightInput = document.querySelector("#height");
+const weightInput = document.querySelector("#weight");
+const calcButton = document.querySelector("#calc-button");
+const clearButton = document.querySelector("#clear-button");
 
 //functions
+function createTable(data){
+    data.forEach((item) => {
+        const div = document.createElement("div");
+        div.classList.add("table-data");
 
+        const classification = document.createElement("p");
+        classification.innerText = item.classification;
 
+        const info = document.createElement("p");
+        info.innerText = item.info;
+
+        const obesity = document.createElement("p");
+        obesity.innerText = item.obesity;
+
+        div.appendChild(classification);
+        div.appendChild(info);
+        div.appendChild(obesity);
+
+        bmiTable.appendChild(div);
+    });
+}
+
+function cleanInputs(){
+    heightInput.value = "";
+    weightInput.value = "";
+}
+
+function validDigits(text){
+    return text.replace(/[^0-9,]/g, "");
+}
 
 //init
-
-
+createTable(data);
 
 //events
+[heightInput, weightInput].forEach((el) => {
+    el.addEventListener("input", e => {
+        const updatedValue = validDigits(e.target.value);
+
+        e.target.value = updatedValue;
+    })
+})
+
+clearButton.addEventListener("click", (e) => {
+    e.preventDefault;
+    cleanInputs();
+})
